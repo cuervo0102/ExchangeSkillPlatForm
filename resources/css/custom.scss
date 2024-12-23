@@ -1,0 +1,12 @@
+// Import Bootstrap functions and variables
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Override primary color to green
+$primary: #28a745;
+
+// Generate a gradient for backgrounds
+$green-gradient: linear-gradient(180deg, #28a745, #218838, #1e7e34);
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
