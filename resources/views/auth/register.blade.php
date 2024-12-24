@@ -8,7 +8,7 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
 
-    <style>
+<style>
 
 body {
     background: linear-gradient(135deg, #93C54B, #2E7D32);

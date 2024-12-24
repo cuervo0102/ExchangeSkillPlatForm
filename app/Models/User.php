@@ -51,4 +51,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function interests()
+    {
+        return $this->belongsToMany(Interest::class, 'interest_user');
+
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
