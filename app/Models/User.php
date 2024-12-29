@@ -24,8 +24,8 @@ class User extends Authenticatable
         'date_of_entry',
         'student_year',
         'field',
-        'email',
         'password',
+        'profile_picture',
     ];
     
 
@@ -60,5 +60,13 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function getProfileImageUrlAttribute()
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        return asset('/public/images/default-avatar.png');
     }
 }

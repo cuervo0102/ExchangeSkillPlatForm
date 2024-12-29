@@ -15,6 +15,14 @@ class Post extends Model
         'user_id'  
     ];
 
+    public function getImageUrlAttribute()
+    {
+        if ($this->image_path) {
+            return asset('storage/' . $this->image_path);
+        }
+        return asset('/public/images/default-post.jpg'); 
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

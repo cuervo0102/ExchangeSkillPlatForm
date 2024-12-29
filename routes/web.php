@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     // Show all posts
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index-post');
     
     // Show the create post form
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');

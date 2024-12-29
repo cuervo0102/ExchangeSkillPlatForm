@@ -5,19 +5,16 @@ use App\Models\Post;
 use App\Models\Interest;
 use Illuminate\Http\Request;
 
-
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
-            
-            return view('posts.index', compact('posts'));
+        $posts = Post::with('user')->latest()->get(); 
+        return view('posts.index-post', compact('posts'));
     }
 
     public function create()
     {
-        
         $interests = Interest::where('field', auth()->user()->field)->get();
         return view('posts.create-post', compact('interests'));
     }
@@ -28,13 +25,15 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-
         ]);
 
-       
-        $imagePath = $request->file('image')->store('posts', 'public');
+        // Store the image
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts', 'public');
+        }
 
-        
+        // Create the post
         $post = Post::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
@@ -42,10 +41,8 @@ class PostController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        
-
-        return redirect()->route('posts.index')
-        ->with('success', 'Post created successfully!');
+        return redirect()->route('posts.index-post')
+            ->with('success', 'Post created successfully!');
     }
 
     public function show(Post $post)
@@ -54,4 +51,3 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 }
-
